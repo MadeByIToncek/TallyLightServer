@@ -25,17 +25,23 @@ jobs:
       run: dotnet restore
     - name: Build
       run: | 
+        mkdir out
         dotnet publish -c Release -r win-x64 --self-contained -p:PublishReadyToRun=true
+        zip -9 out/win-x64 bin/Release/net7.0/win-x64/publish/*
+        rm -rf bin/
         dotnet publish -c Release -r win-x86 --self-contained -p:PublishReadyToRun=true
+        zip -9 out/win-x86 bin/Release/net7.0/win-x86/publish/*
+        rm -rf bin/
         dotnet publish -c Release -r linux-x64 --self-contained -p:PublishReadyToRun=true
+        zip -9 out/linux-x64 bin/Release/net7.0/linux-x64/publish/*
+        rm -rf bin/
         dotnet publish -c Release -r linux-arm --self-contained -p:PublishReadyToRun=true
+        zip -9 out/linux-arm bin/Release/net7.0/linux-arm/publish/*
+        rm -rf bin/
         dotnet publish -c Release -r linux-arm64 --self-contained -p:PublishReadyToRun=true
-    - run: zip -9 win-x64 bin/Release/net7.0/win-x64/publish/*
-    - run: zip -9 win-x86 bin/Release/net7.0/win-x86/publish/*
-    - run: zip -9 linux-x64 bin/Release/net7.0/linux-x64/publish/*
-    - run: zip -9 linux-arm bin/Release/net7.0/linux-arm/publish/*
-    - run: zip -9 linux-arm64 bin/Release/net7.0/linux-arm64/publish/*
-    - run: ls -la
+        zip -9 out/linux-arm64 bin/Release/net7.0/linux-arm64/publish/*
+        rm -rf bin/
+    - run: ls -la out/
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -43,17 +49,17 @@ jobs:
         prerelease: true
         title: "Development Build"
         files: |
-          win-x64.zip 
-          win-x86.zip 
-          linux-x64.zip 
-          linux-arm.zip 
-          linux-arm64.zip 
+          out/win-x64.zip 
+          out/win-x86.zip 
+          out/linux-x64.zip 
+          out/linux-arm.zip 
+          out/linux-arm64.zip 
     - uses: actions/upload-artifact@v3
       with:
-        name: plugins
+        name: build
         path: |
-          win-x64.zip 
-          win-x86.zip 
-          linux-x64.zip 
-          linux-arm.zip 
-          linux-arm64.zip 
+          out/win-x64.zip 
+          out/win-x86.zip 
+          out/linux-x64.zip 
+          out/linux-arm.zip 
+          out/linux-arm64.zip 
