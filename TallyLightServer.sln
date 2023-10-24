@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TallyLightServer", "TallyLightServer.csproj", "{A24E7EF6-60FE-43FD-B181-CB84633CB463}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TallyLightServer", "TallyLightServer.csproj", "{9DFC7F9B-768C-428D-800F-078E1DC3127B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A24E7EF6-60FE-43FD-B181-CB84633CB463}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A24E7EF6-60FE-43FD-B181-CB84633CB463}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A24E7EF6-60FE-43FD-B181-CB84633CB463}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A24E7EF6-60FE-43FD-B181-CB84633CB463}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DFC7F9B-768C-428D-800F-078E1DC3127B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFC7F9B-768C-428D-800F-078E1DC3127B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFC7F9B-768C-428D-800F-078E1DC3127B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFC7F9B-768C-428D-800F-078E1DC3127B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {29BC328B-CEB0-4C6A-9E86-395B94490825}
+		SolutionGuid = {9E115046-8570-46DE-BE91-4855D3330BF1}
 	EndGlobalSection
 EndGlobal

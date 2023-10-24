@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using Fleck;
+﻿using Fleck;
 using Newtonsoft.Json.Linq;
-using vtortola.WebSockets;
 
 
 namespace TallyLightServer
@@ -13,7 +8,7 @@ namespace TallyLightServer
     {
         static WebSocketSharp.WebSocket ws;
         static List<IWebSocketConnection> allSockets = new List<IWebSocketConnection>();
-        static Dictionary<string,string> requestIdent = new Dictionary<string,string>();
+        static Dictionary<string, string> requestIdent = new Dictionary<string, string>();
         static void Main(string[] args)
         {
             var server = new WebSocketServer("ws://0.0.0.0:5555");
@@ -104,23 +99,23 @@ namespace TallyLightServer
                                     new JProperty("requestData", new JObject(
                                         new JProperty("sourceName", target))))
                                 ));
-                            requestIdent.Add(ident,target);
+                            requestIdent.Add(ident, target);
                             ws.Send(request.ToString());
                             break;
                     }
                     break;
                 case 7:
-                    if(requestIdent.ContainsKey(d.GetValue("requestId").Value<string>()))
+                    if (requestIdent.ContainsKey(d.GetValue("requestId").Value<string>()))
                     {
                         string val = requestIdent[d.GetValue("requestId").Value<string>()];
                         JObject output = new JObject();
 
-                        output.Add(new JProperty("sourceIdent",val));
-                        int active = d.GetValue("requestStatus").Value<JObject>().GetValue("result").Value<bool>()?
-                            (d.GetValue("responseData").Value<JObject>().GetValue("videoActive").Value<bool>()?
-                            1:0)
-                            :2;
-                        output.Add(new JProperty("active",active));
+                        output.Add(new JProperty("sourceIdent", val));
+                        int active = d.GetValue("requestStatus").Value<JObject>().GetValue("result").Value<bool>() ?
+                            (d.GetValue("responseData").Value<JObject>().GetValue("videoActive").Value<bool>() ?
+                            1 : 0)
+                            : 2;
+                        output.Add(new JProperty("active", active));
                         foreach (var socket in allSockets.ToList())
                         {
                             socket.Send(output.ToString());
@@ -136,7 +131,7 @@ namespace TallyLightServer
             return (char)(rng.Next('A', 'Z' + 1));
         }
 
-        public static string GenerateString( int length)
+        public static string GenerateString(int length)
         {
             Random rng = new Random();
             char[] letters = new char[length];
