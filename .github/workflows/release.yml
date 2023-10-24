@@ -30,13 +30,12 @@ jobs:
         dotnet publish -c Release -r linux-x64 --self-contained -p:PublishReadyToRun=true
         dotnet publish -c Release -r linux-arm --self-contained -p:PublishReadyToRun=true
         dotnet publish -c Release -r linux-arm64 --self-contained -p:PublishReadyToRun=true
-    - name: Zippin'
-      run: |
-        zip -9 win-x64 bin/Release/net7.0/win-x64/publish/*
-        zip -9 win-x86 bin/Release/net7.0/win-x86/publish/*
-        zip -9 linux-x64 bin/Release/net7.0/linux-x64/publish/*
-        zip -9 linux-arm bin/Release/net7.0/linux-arm/publish/*
-        zip -9 linux-arm64 bin/Release/net7.0/linux-arm64/publish/*
+    - run: zip -9 win-x64 bin/Release/net7.0/win-x64/publish/*
+    - run: zip -9 win-x86 bin/Release/net7.0/win-x86/publish/*
+    - run: zip -9 linux-x64 bin/Release/net7.0/linux-x64/publish/*
+    - run: zip -9 linux-arm bin/Release/net7.0/linux-arm/publish/*
+    - run: zip -9 linux-arm64 bin/Release/net7.0/linux-arm64/publish/*
+    - run: ls -la
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
