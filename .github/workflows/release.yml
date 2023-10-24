@@ -26,19 +26,19 @@ jobs:
     - name: Build
       run: | 
         mkdir out
-        dotnet publish -c Release -r win-x64 --self-contained -p:PublishReadyToRun=true
+        dotnet publish -c Release -r win-x64 --self-contained false -p:PublishReadyToRun=true
         zip -9 out/win-x64 bin/Release/net7.0/win-x64/publish/*
         rm -rf bin/
-        dotnet publish -c Release -r win-x86 --self-contained -p:PublishReadyToRun=true
+        dotnet publish -c Release -r win-x86 --self-contained false -p:PublishReadyToRun=true
         zip -9 out/win-x86 bin/Release/net7.0/win-x86/publish/*
         rm -rf bin/
-        dotnet publish -c Release -r linux-x64 --self-contained -p:PublishReadyToRun=true
+        dotnet publish -c Release -r linux-x64 --self-contained false -p:PublishReadyToRun=true
         zip -9 out/linux-x64 bin/Release/net7.0/linux-x64/publish/*
         rm -rf bin/
-        dotnet publish -c Release -r linux-arm --self-contained -p:PublishReadyToRun=true
+        dotnet publish -c Release -r linux-arm --self-contained false -p:PublishReadyToRun=true
         zip -9 out/linux-arm bin/Release/net7.0/linux-arm/publish/*
         rm -rf bin/
-        dotnet publish -c Release -r linux-arm64 --self-contained -p:PublishReadyToRun=true
+        dotnet publish -c Release -r linux-arm64 --self-contained false -p:PublishReadyToRun=true
         zip -9 out/linux-arm64 bin/Release/net7.0/linux-arm64/publish/*
         rm -rf bin/
     - run: ls -la out/
