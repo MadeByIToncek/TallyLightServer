@@ -1,0 +1,60 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET Release
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    name: Build all packages
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+      security-events: write  
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: | 
+        dotnet publish -c Release -r win-x64 --self-contained -p:PublishReadyToRun=true
+        dotnet publish -c Release -r win-x86 --self-contained -p:PublishReadyToRun=true
+        dotnet publish -c Release -r linux-x64 --self-contained -p:PublishReadyToRun=true
+        dotnet publish -c Release -r linux-arm --self-contained -p:PublishReadyToRun=true
+        dotnet publish -c Release -r linux-arm64 --self-contained -p:PublishReadyToRun=true
+    - name: Zippin'
+      run: |
+        zip -9 win-x64 bin/Release/net7.0/win-x64/publish/*
+        zip -9 win-x86 bin/Release/net7.0/win-x86/publish/*
+        zip -9 linux-x64 bin/Release/net7.0/linux-x64/publish/*
+        zip -9 linux-arm bin/Release/net7.0/linux-arm/publish/*
+        zip -9 linux-arm64 bin/Release/net7.0/linux-arm64/publish/*
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+        files: |
+          win-x64.zip 
+          win-x86.zip 
+          linux-x64.zip 
+          linux-arm.zip 
+          linux-arm64.zip 
+    - uses: actions/upload-artifact@v3
+      with:
+        name: plugins
+        path: |
+          win-x64.zip 
+          win-x86.zip 
+          linux-x64.zip 
+          linux-arm.zip 
+          linux-arm64.zip 
