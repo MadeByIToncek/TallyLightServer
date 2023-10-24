@@ -27,20 +27,15 @@ jobs:
       run: | 
         mkdir out
         dotnet publish -c Release -r win-x64 --self-contained false -p:PublishReadyToRun=true
-        zip -9 out/win-x64 bin/Release/net7.0/win-x64/publish/*
-        rm -rf bin/
         dotnet publish -c Release -r win-x86 --self-contained false -p:PublishReadyToRun=true
-        zip -9 out/win-x86 bin/Release/net7.0/win-x86/publish/*
-        rm -rf bin/
         dotnet publish -c Release -r linux-x64 --self-contained false -p:PublishReadyToRun=true
-        zip -9 out/linux-x64 bin/Release/net7.0/linux-x64/publish/*
-        rm -rf bin/
         dotnet publish -c Release -r linux-arm --self-contained false -p:PublishReadyToRun=true
-        zip -9 out/linux-arm bin/Release/net7.0/linux-arm/publish/*
-        rm -rf bin/
         dotnet publish -c Release -r linux-arm64 --self-contained false -p:PublishReadyToRun=true
-        zip -9 out/linux-arm64 bin/Release/net7.0/linux-arm64/publish/*
-        rm -rf bin/
+        tar -czf out/win-x64.tar.gz bin/Release/net7.0/win-x64/publish
+        tar -czf out/win-x86.tar.gz bin/Release/net7.0/win-x86/publish
+        tar -czf out/linux-x64.tar.gz bin/Release/net7.0/linux-x64/publish
+        tar -czf out/linux-arm.tar.gz bin/Release/net7.0/linux-arm/publish
+        tar -czf out/linux-arm64.tar.gz bin/Release/net7.0/linux-arm64/publish
     - run: ls -la out/
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
@@ -49,17 +44,17 @@ jobs:
         prerelease: true
         title: "Development Build"
         files: |
-          out/win-x64.zip 
-          out/win-x86.zip 
-          out/linux-x64.zip 
-          out/linux-arm.zip 
-          out/linux-arm64.zip 
+          out/win-x64.tar.gz
+          out/win-x86.tar.gz
+          out/linux-x64.tar.gz
+          out/linux-arm.tar.gz
+          out/linux-arm64.tar.gz
     - uses: actions/upload-artifact@v3
       with:
         name: build
         path: |
-          out/win-x64.zip 
-          out/win-x86.zip 
-          out/linux-x64.zip 
-          out/linux-arm.zip 
-          out/linux-arm64.zip 
+          out/win-x64.tar.gz
+          out/win-x86.tar.gz
+          out/linux-x64.tar.gz
+          out/linux-arm.tar.gz
+          out/linux-arm64.tar.gz
