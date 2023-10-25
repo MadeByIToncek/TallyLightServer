@@ -31,12 +31,17 @@ jobs:
         dotnet publish -c Release -r linux-x64 --self-contained false -p:PublishReadyToRun=true
         dotnet publish -c Release -r linux-arm --self-contained false -p:PublishReadyToRun=true
         dotnet publish -c Release -r linux-arm64 --self-contained false -p:PublishReadyToRun=true
-        tar -czf out/win-x64.tar.gz bin/Release/net7.0/win-x64/publish
-        tar -czf out/win-x86.tar.gz bin/Release/net7.0/win-x86/publish
-        tar -czf out/linux-x64.tar.gz bin/Release/net7.0/linux-x64/publish
-        tar -czf out/linux-arm.tar.gz bin/Release/net7.0/linux-arm/publish
-        tar -czf out/linux-arm64.tar.gz bin/Release/net7.0/linux-arm64/publish
-    - run: ls -la out/
+        cd bin/Release/net7.0/win-x64/publish/
+        tar -czf win-x64.tar.gz .
+        cd ../../../../../bin/Release/net7.0/win-x86/publish
+        tar -czf win-x86.tar.gz 
+        cd ../../../../../bin/Release/net7.0/linux-x64/publish
+        tar -czf linux-x64.tar.gz bin/Release/net7.0/linux-x64/publish
+        cd ../../../../../bin/Release/net7.0/linux-arm/publish
+        tar -czf linux-arm.tar.gz bin/Release/net7.0/linux-arm/publish
+        cd ../../../../../bin/Release/net7.0/linux-arm64/publish
+        tar -czf linux-arm64.tar.gz bin/Release/net7.0/linux-arm64/publish
+    - run: ls -la bin/Release/net7.0/
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -44,17 +49,17 @@ jobs:
         prerelease: true
         title: "Development Build"
         files: |
-          out/win-x64.tar.gz
-          out/win-x86.tar.gz
-          out/linux-x64.tar.gz
-          out/linux-arm.tar.gz
-          out/linux-arm64.tar.gz
+          bin/Release/net7.0/win-x64/publish/win-x64.tar.gz
+          bin/Release/net7.0/win-x86/publish/win-x86.tar.gz
+          bin/Release/net7.0/linux-x64/publish/linux-x64.tar.gz
+          bin/Release/net7.0/linux-arm/publish/linux-arm.tar.gz
+          bin/Release/net7.0/linux-arm64/publish/linux-arm64.tar.gz
     - uses: actions/upload-artifact@v3
       with:
         name: build
         path: |
-          out/win-x64.tar.gz
-          out/win-x86.tar.gz
-          out/linux-x64.tar.gz
-          out/linux-arm.tar.gz
-          out/linux-arm64.tar.gz
+          bin/Release/net7.0/win-x64/publish/win-x64.tar.gz
+          bin/Release/net7.0/win-x86/publish/win-x86.tar.gz
+          bin/Release/net7.0/linux-x64/publish/linux-x64.tar.gz
+          bin/Release/net7.0/linux-arm/publish/linux-arm.tar.gz
+          bin/Release/net7.0/linux-arm64/publish/linux-arm64.tar.gz
