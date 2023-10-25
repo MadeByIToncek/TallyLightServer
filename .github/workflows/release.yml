@@ -26,11 +26,11 @@ jobs:
     - name: Build
       run: | 
         mkdir release
-        dotnet publish -c Release -r win-x64 --self-contained false -p:PublishReadyToRun=true
-        dotnet publish -c Release -r win-x86 --self-contained false -p:PublishReadyToRun=true
-        dotnet publish -c Release -r linux-x64 --self-contained false -p:PublishReadyToRun=true
-        dotnet publish -c Release -r linux-arm --self-contained false -p:PublishReadyToRun=true
-        dotnet publish -c Release -r linux-arm64 --self-contained false -p:PublishReadyToRun=true
+        dotnet publish -c Release -r win-x64 --self-contained false -p:PublishReadyToRun=true --property WarningLevel=1
+        dotnet publish -c Release -r win-x86 --self-contained false -p:PublishReadyToRun=true --property WarningLevel=1
+        dotnet publish -c Release -r linux-x64 --self-contained false -p:PublishReadyToRun=true --property WarningLevel=1
+        dotnet publish -c Release -r linux-arm --self-contained false -p:PublishReadyToRun=true --property WarningLevel=1
+        dotnet publish -c Release -r linux-arm64 --self-contained false -p:PublishReadyToRun=true --property WarningLevel=1
         cp bin/Release/net7.0/win-x64/publish/* release/
         tar -czf win-x64.tar.gz release
         rm -rf release
