@@ -44,17 +44,17 @@ jobs:
         prerelease: true
         title: "Development Build"
         files: |
-          out/win-x64.tar.gz
-          out/win-x86.tar.gz
-          out/linux-x64.tar.gz
-          out/linux-arm.tar.gz
-          out/linux-arm64.tar.gz
+          win-x64.tar.gz
+          win-x86.tar.gz
+          linux-x64.tar.gz
+          linux-arm.tar.gz
+          linux-arm64.tar.gz
     - uses: actions/upload-artifact@v3
       with:
         name: build
         path: |
-          out/win-x64.tar.gz
-          out/win-x86.tar.gz
-          out/linux-x64.tar.gz
-          out/linux-arm.tar.gz
-          out/linux-arm64.tar.gz
+          win-x64.tar.gz
+          win-x86.tar.gz
+          linux-x64.tar.gz
+          linux-arm.tar.gz
+          linux-arm64.tar.gz
